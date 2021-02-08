@@ -39,7 +39,7 @@ namespace NewtonMethod
         }
         public bool CompareToMathPow(double resultRoot)
         {
-            mathPow = Math.Pow(number, 1.0 / rootDegree);
+            mathPow = Math.Pow(resultRoot,rootDegree);
             return resultRoot - mathPow < 0;
         }
     }
