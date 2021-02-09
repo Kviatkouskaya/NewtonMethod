@@ -2,26 +2,23 @@
 
 namespace NewtonMethod
 {
-    class RootCalculation
+    class ValuesForRoot
     {
-        private readonly double number;
-        private readonly double rootDegree;
-        private double mathPow;
-        private double Precision { get; }
-        public RootCalculation()
+        public readonly double number;
+        public readonly double rootDegree;
+        public double Precision { get; }
+        public ValuesForRoot(double number, double rootDegree, double precision) 
         {
-            Console.WriteLine("Enter number:");
-            number = double.Parse(Console.ReadLine());
-            Console.WriteLine("Enter degree of the number:");
-            rootDegree = double.Parse(Console.ReadLine());
-            Console.WriteLine("Enter specified precision:");
-            Precision = double.Parse(Console.ReadLine());
+            this.number = number;
+            this.rootDegree = rootDegree;
+            Precision = precision;
         }
         public double CalculateRoot()
         {
-            double root = number / rootDegree;
+
+            double root = number /rootDegree;
             double rn = number;
-            while (Mabs(root - rn) >= Precision)
+            while (Math.Abs(root - rn) >= Precision)
             {
                 rn = number;
                 for (int i = 1; i < rootDegree; i++)
@@ -31,27 +28,36 @@ namespace NewtonMethod
                 root = (rn + root) / 2;
             }
             return root;
-
-            static double Mabs(double x)
-            {
-                return (x < 0) ? -x : x;
-            }
         }
-        public bool CompareToMathPow(double resultRoot)
+        public bool CompareToStandart(double resultRoot)
         {
-            mathPow = Math.Pow(resultRoot,rootDegree);
+            double mathPow = Math.Pow(number, 1 / rootDegree);
             return resultRoot - mathPow < 0;
         }
     }
     class Program
     {
-        static void Main()
+        private static ValuesForRoot InputValuesForCalculation()
         {
             Console.WriteLine("Finding n-th root of the number");
-            RootCalculation calculation = new RootCalculation();
-            double root = calculation.CalculateRoot();
-            Console.WriteLine($"Root is: {root}");
-            Console.WriteLine(calculation.CompareToMathPow(root));
+            Console.WriteLine("Enter number:");
+            double number = double.Parse(Console.ReadLine());
+            Console.WriteLine("Enter degree of the number:");
+            double rootDegree = double.Parse(Console.ReadLine());
+            Console.WriteLine("Enter specified precision:");
+            double precision = double.Parse(Console.ReadLine());
+            return new ValuesForRoot(number, rootDegree, precision);
+        }
+        /*
+        private static void PrintOutput(ValuesForRoot forRoot, double resultRoot)
+        {
+
+        }
+        */
+        static void Main()
+        {
+            ValuesForRoot calculation = InputValuesForCalculation();
+            double resultRoot = calculation.CalculateRoot();
         }
     }
 }
