@@ -5,9 +5,9 @@ namespace NewtonMethod
     class RootCalculation
     {
         private readonly double number;
-        private readonly int rootDegree;
+        private readonly double rootDegree;
         private double Precision { get; }
-        public RootCalculation(double number, int rootDegree, double precis)
+        public RootCalculation(double number, double rootDegree, double precis)
         {
             this.number = number;
             this.rootDegree = rootDegree;
@@ -31,6 +31,7 @@ namespace NewtonMethod
         public bool CompareToStandart(double resultRoot)
         {
             double mathPow = Math.Pow(number, 1 / rootDegree);
+            Console.WriteLine($"MathPow is: {mathPow}");
             return resultRoot - mathPow == 0;
         }
         public override bool Equals(object obj)
@@ -42,7 +43,7 @@ namespace NewtonMethod
         }
         public override int GetHashCode()
         {
-            return (int)number + rootDegree;
+            return (int)(number + rootDegree);
         }
     }
     class Program
