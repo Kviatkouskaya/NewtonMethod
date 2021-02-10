@@ -2,21 +2,20 @@
 
 namespace NewtonMethod
 {
-    class ValuesForRoot
+    class RootCalculation
     {
-        public readonly double number;
-        public readonly double rootDegree;
-        public double Precision { get; }
-        public ValuesForRoot(double number, double rootDegree, double precision) 
+        private readonly double number;
+        private readonly double rootDegree;
+        private double Precision { get; }
+        public RootCalculation(double number, double rootDegree, double precis)
         {
             this.number = number;
             this.rootDegree = rootDegree;
-            Precision = precision;
+            Precision = precis;
         }
         public double CalculateRoot()
         {
-
-            double root = number /rootDegree;
+            double root = number / rootDegree;
             double rn = number;
             while (Math.Abs(root - rn) >= Precision)
             {
@@ -32,12 +31,23 @@ namespace NewtonMethod
         public bool CompareToStandart(double resultRoot)
         {
             double mathPow = Math.Pow(number, 1 / rootDegree);
-            return resultRoot - mathPow < 0;
+            return resultRoot - mathPow == 0;
+        }
+        public override bool Equals(object obj)
+        {
+            RootCalculation values = (RootCalculation)obj;
+            return (values.number == number &&
+                    values.rootDegree == rootDegree &&
+                    values.Precision == Precision);
+        }
+        public override int GetHashCode()
+        {
+            return (int)(number + rootDegree);
         }
     }
     class Program
     {
-        private static ValuesForRoot InputValuesForCalculation()
+        private static RootCalculation InputValuesForCalculation()
         {
             Console.WriteLine("Finding n-th root of the number");
             Console.WriteLine("Enter number:");
@@ -46,18 +56,18 @@ namespace NewtonMethod
             double rootDegree = double.Parse(Console.ReadLine());
             Console.WriteLine("Enter specified precision:");
             double precision = double.Parse(Console.ReadLine());
-            return new ValuesForRoot(number, rootDegree, precision);
+            return new RootCalculation(number, rootDegree, precision);
         }
-        /*
-        private static void PrintOutput(ValuesForRoot forRoot, double resultRoot)
+        private static void PrintOutput(RootCalculation forRoot)
         {
-
+            double resultRoot = forRoot.CalculateRoot();
+            Console.WriteLine($"Root is: {resultRoot}");
+            Console.WriteLine(forRoot.CompareToStandart(resultRoot));
         }
-        */
         static void Main()
         {
-            ValuesForRoot calculation = InputValuesForCalculation();
-            double resultRoot = calculation.CalculateRoot();
+            RootCalculation calculation = InputValuesForCalculation();
+            PrintOutput(calculation);
         }
     }
 }
