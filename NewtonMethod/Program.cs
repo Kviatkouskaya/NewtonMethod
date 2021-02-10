@@ -5,9 +5,9 @@ namespace NewtonMethod
     class RootCalculation
     {
         private readonly double number;
-        private readonly double rootDegree;
+        private readonly int rootDegree;
         private double Precision { get; }
-        public RootCalculation(double number, double rootDegree, double precis)
+        public RootCalculation(double number, int rootDegree, double precis)
         {
             this.number = number;
             this.rootDegree = rootDegree;
@@ -42,7 +42,7 @@ namespace NewtonMethod
         }
         public override int GetHashCode()
         {
-            return (int)(number + rootDegree);
+            return (int)number + rootDegree;
         }
     }
     class Program
@@ -53,16 +53,16 @@ namespace NewtonMethod
             Console.WriteLine("Enter number:");
             double number = double.Parse(Console.ReadLine());
             Console.WriteLine("Enter degree of the number:");
-            double rootDegree = double.Parse(Console.ReadLine());
+            int rootDegree = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter specified precision:");
             double precision = double.Parse(Console.ReadLine());
             return new RootCalculation(number, rootDegree, precision);
         }
         private static void PrintOutput(RootCalculation forRoot)
         {
-            double resultRoot = forRoot.CalculateRoot();
-            Console.WriteLine($"Root is: {resultRoot}");
-            Console.WriteLine(forRoot.CompareToStandart(resultRoot));
+                double resultRoot = forRoot.CalculateRoot();
+                Console.WriteLine($"Root is: {resultRoot}");
+                Console.WriteLine(forRoot.CompareToStandart(resultRoot));
         }
         static void Main()
         {
