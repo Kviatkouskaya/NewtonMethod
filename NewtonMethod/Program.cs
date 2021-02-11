@@ -34,17 +34,6 @@ namespace NewtonMethod
             Console.WriteLine($"MathPow is: {mathPow}");
             return resultRoot - mathPow == 0;
         }
-        public override bool Equals(object obj)
-        {
-            RootCalculation values = (RootCalculation)obj;
-            return (values.number == number &&
-                    values.rootDegree == rootDegree &&
-                    values.Precision == Precision);
-        }
-        public override int GetHashCode()
-        {
-            return (int)(number + rootDegree);
-        }
     }
     class Program
     {
@@ -61,9 +50,9 @@ namespace NewtonMethod
         }
         private static void PrintOutput(RootCalculation forRoot)
         {
-                double resultRoot = forRoot.CalculateRoot();
-                Console.WriteLine($"Root is: {resultRoot}");
-                Console.WriteLine(forRoot.CompareToStandart(resultRoot));
+            double resultRoot = forRoot.CalculateRoot();
+            Console.WriteLine($"Root is: {resultRoot}");
+            Console.WriteLine(forRoot.CompareToStandart(resultRoot));
         }
         static void Main()
         {
