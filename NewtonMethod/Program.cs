@@ -6,7 +6,7 @@ namespace NewtonMethod
     {
         private readonly double number;
         private readonly double rootDegree;
-        private double Precision { get; }
+        private readonly double Precision;
         public RootCalculation(double number, double rootDegree, double precis)
         {
             this.number = number;
